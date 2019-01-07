@@ -55,7 +55,7 @@ prepare_wordcloud() sanitizes the text and puts it into a list
 '''
 def prepare_wordcloud(conn):
   cur = conn.cursor()
-  cur.execute('SELECT title, synopsis from frontpage_stats')
+  cur.execute('SELECT title, synopsis from frontpage_stats WHERE date = \'%s\'' % strftime('%Y-%m-%d'))
 
   rows = cur.fetchall()
   rows = str(rows)
@@ -122,7 +122,7 @@ def main():
 
   conn = sqlite3.connect('heise_frontpage.db')
   #init_table(conn)
-  #insert_into_table(conn, teaser_titles, teaser_synopsis)
+  insert_into_table(conn, teaser_titles, teaser_synopsis)
   #get_all_rows(conn)
   create_wordcloud(prepare_wordcloud(conn))
   conn.close()
