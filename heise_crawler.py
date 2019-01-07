@@ -4,6 +4,7 @@ import sqlite3
 from time import strftime
 from wordcloud import WordCloud
 
+
 '''
 init_table() creates the frontpage_stats table in sqlite3
 '''
@@ -15,6 +16,7 @@ def init_table(conn):
   conn.commit()
 
   return
+
 
 '''
 insert_into_table() adds the scraped data to individual rows
@@ -32,6 +34,7 @@ def insert_into_table(conn, teaser_titles, teaser_synopsis):
 
   return
 
+
 '''
 get_all_rows() selects all rows and prints them
 '''
@@ -45,6 +48,7 @@ def get_all_rows(conn):
     print(row)
 
   return
+
 
 '''
 prepare_wordcloud() sanitizes the text and puts it into a list
@@ -60,8 +64,9 @@ def prepare_wordcloud(conn):
 
   for row in range(len(rows)):
     rows[row] = rows[row].replace("'", '').replace('(', '').replace(')', '').replace(',', '').replace('"', '').replace(':', '').replace('[', '').replace(']', '').replace('?', '').replace('Der', '').replace('Die', '').replace('Das', '').replace('Auf', '').replace('Mit', '').replace('Ein', '').replace('Eine', '')
+
     # its important to check whether the string is empty FIRST - otherwise you get IndexError: string index out of range
-    if rows[row] != '' and rows[row][0].isupper():
+    if rows[row] != '' and (is_number(rows[row][0]) or rows[row][0].isupper()):
       res += rows[row] + ' '
   
   return res
@@ -75,6 +80,26 @@ def create_wordcloud(prepared_list):
   wc.to_file('wordcloud.png')
 
   return
+
+
+'''
+is_number() checks if a string is actually a number
+'''
+def is_number(s):
+  try:
+      int(s)
+      return True
+  except ValueError:
+      pass
+
+  try:
+      import unicodedata
+      unicodedata.numeric(s)
+      return True
+  except (TypeError, ValueError):
+      pass
+ 
+  return False
 
 
 '''
