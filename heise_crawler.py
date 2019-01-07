@@ -59,8 +59,9 @@ def prepare_wordcloud(conn):
   res = ''
 
   for row in range(len(rows)):
-    rows[row] = rows[row].replace("'", '').replace('(', '').replace(')', '').replace(',', '').replace('"', '').replace(':', '').replace('[', '').replace(']', '').replace('?', '')
-    if rows[row][0].isupper():
+    rows[row] = rows[row].replace("'", '').replace('(', '').replace(')', '').replace(',', '').replace('"', '').replace(':', '').replace('[', '').replace(']', '').replace('?', '').replace('Der', '').replace('Die', '').replace('Das', '').replace('Auf', '').replace('Mit', '').replace('Ein', '').replace('Eine', '')
+    # its important to check whether the string is empty FIRST - otherwise you get IndexError: string index out of range
+    if rows[row] != '' and rows[row][0].isupper():
       res += rows[row] + ' '
   
   return res
@@ -70,7 +71,7 @@ def prepare_wordcloud(conn):
 create_wordcloud() does exactly what you think it does
 '''
 def create_wordcloud(prepared_list):
-  wc = WordCloud(collocations=False, width=1920, height=1080).generate(prepared_list)
+  wc = WordCloud(collocations=False, width=1920, height=1080, background_color='white').generate(prepared_list)
   wc.to_file('wordcloud.png')
 
   return
