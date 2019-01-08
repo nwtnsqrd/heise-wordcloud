@@ -51,7 +51,7 @@ def get_all_rows(conn):
 
 
 '''
-prepare_wordcloud() sanitizes the text and puts it into a list
+prepare_wordcloud() sanitizes the text and puts it into a single, whitespace-separated string
 '''
 def prepare_wordcloud(conn):
   cur = conn.cursor()
@@ -75,8 +75,8 @@ def prepare_wordcloud(conn):
 '''
 create_wordcloud() does exactly what you think it does
 '''
-def create_wordcloud(prepared_list):
-  wc = WordCloud(collocations=False, width=1920, height=1080, background_color='white').generate(prepared_list)
+def create_wordcloud(prepared_string):
+  wc = WordCloud(collocations=False, width=1920, height=1080, background_color='white').generate(prepared_string)
   wc.to_file('./images/wordcloud_%s.png' % strftime('%Y-%m-%d-%H-%M-%S'))
 
   return
