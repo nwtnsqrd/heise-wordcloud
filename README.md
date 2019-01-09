@@ -8,3 +8,10 @@
 
 ### 2019-01-08
 ![sample output](https://github.com/nwtnsqrd/heise-wordcloud/blob/master/images/wordcloud_2019-01-08-09-48-27.png)
+
+----
+
+### 2019-01-09
+![sample output](https://github.com/nwtnsqrd/heise-wordcloud/blob/master/images/wordcloud_2019-01-09-10-01-29.png)
+
+----
