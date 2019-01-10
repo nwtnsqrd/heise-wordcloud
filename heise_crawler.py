@@ -63,7 +63,7 @@ def prepare_wordcloud(conn):
   res = ''
 
   for row in range(len(rows)):
-    rows[row] = rows[row].replace("'", '').replace('(', '').replace(')', '').replace(',', '').replace('"', '').replace(':', '').replace('[', '').replace(']', '').replace('?', '').replace('Der', '').replace('Die', '').replace('Das', '').replace('Auf', '').replace('Mit', '').replace('Ein', '').replace('Eine', '').replace('Viele', '')
+    rows[row] = rows[row].replace("'", '').replace('(', '').replace(')', '').replace(',', '').replace('"', '').replace(':', '').replace('[', '').replace(']', '').replace('?', '').replace('Der ', '').replace('Die ', '').replace('Das ', '').replace('Auf ', '').replace('Mit ', '').replace('Ein ', '').replace('Eine ', '').replace('Viele ', '')
 
     # its important to check whether the string is empty FIRST - otherwise you get IndexError: string index out of range
     if rows[row] != '' and (is_number(rows[row][0]) or rows[row][0].isupper()):
